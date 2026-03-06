@@ -1,0 +1,1052 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Las Negritas – Catálogo</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream:  #faf6f1;
+      --warm:   #f0e8db;
+      --dark:   #1a1108;
+      --brown:  #6b3f1f;
+      --accent: #e8612c;
+      --muted:  #8c7b6b;
+      --card-radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    .navbar {
+      background: var(--dark);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 20px rgba(0,0,0,.35);
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--cream) !important;
+      letter-spacing: .5px;
+    }
+
+    .navbar-brand span { color: var(--accent); }
+
+    .nav-link {
+      color: rgba(255,255,255,.75) !important;
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      padding: 6px 14px !important;
+      border-radius: 50px;
+      transition: all .25s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff !important;
+      background: rgba(232,97,44,.2);
+    }
+
+    .navbar-toggler { border-color: rgba(255,255,255,.3); }
+    .navbar-toggler-icon { filter: invert(1); }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    #inicio {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,97,44,.18), transparent 70%);
+    }
+    .hero-bg-circle.c1 { width: 700px; height: 700px; top: -200px; right: -150px; }
+    .hero-bg-circle.c2 { width: 400px; height: 400px; bottom: -100px; left: -80px; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(232,97,44,.15);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(232,97,44,.3);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+
+    .hero-title span { color: var(--accent); }
+
+    .hero-sub {
+      color: rgba(255,255,255,.55);
+      font-size: 1.05rem;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .btn-hero {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-size: .95rem;
+      font-weight: 500;
+      letter-spacing: .5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .btn-hero:hover {
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(232,97,44,.4);
+    }
+
+    .btn-hero-outline {
+      background: transparent;
+      color: rgba(255,255,255,.7);
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-size: .95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .25s;
+    }
+
+    .btn-hero-outline:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,.6);
+      background: rgba(255,255,255,.07);
+    }
+
+    .hero-stat {
+      text-align: center;
+      padding: 20px 30px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+    }
+
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .hero-stat-label {
+      color: rgba(255,255,255,.45);
+      font-size: .8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ══════════════════════════════
+       SECTION HEADERS
+    ══════════════════════════════ */
+    .section-label {
+      display: inline-block;
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.15;
+    }
+
+    .section-title.light { color: var(--cream); }
+
+    .section-divider {
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 4px;
+      margin: 16px 0 0;
+    }
+
+    .section-divider.mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* ══════════════════════════════
+       NOVEDADES (CAROUSEL)
+    ══════════════════════════════ */
+    #novedades {
+      background: var(--dark);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #novedades::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .carousel-item-custom {
+      padding: 0 12px;
+    }
+
+    .novelty-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .novelty-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(232,97,44,.5);
+    }
+
+    .novelty-img {
+      height: 240px;
+      overflow: hidden;
+      background: rgba(255,255,255,.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .novelty-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+
+    .novelty-card:hover .novelty-img img { transform: scale(1.06); }
+
+    .novelty-img .no-img-icon {
+      font-size: 3rem;
+      color: rgba(255,255,255,.15);
+    }
+
+    .novelty-body { padding: 20px; }
+
+    .novelty-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-bottom: 10px;
+    }
+
+    .novelty-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .novelty-desc {
+      color: rgba(255,255,255,.5);
+      font-size: .85rem;
+      line-height: 1.6;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .novelty-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* carousel arrows */
+    .carousel-ctrl {
+      background: rgba(232,97,44,.85);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      flex-shrink: 0;
+    }
+
+    .carousel-ctrl:hover { background: var(--accent); transform: scale(1.08); }
+
+    /* ══════════════════════════════
+       CATALOGO
+    ══════════════════════════════ */
+    #catalogo { padding: 100px 0; }
+
+    .filter-bar {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 60px;
+      padding: 8px 12px;
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .filter-btn:hover { background: var(--warm); color: var(--dark); }
+
+    .filter-btn.active {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      transition: transform .3s, box-shadow .3s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.13);
+    }
+
+    .product-img {
+      height: 220px;
+      overflow: hidden;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+
+    .product-card:hover .product-img img { transform: scale(1.06); }
+
+    .product-img .no-img {
+      font-size: 2.5rem;
+      color: var(--muted);
+      opacity: .35;
+    }
+
+    .product-cat-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255,255,255,.9);
+      color: var(--brown);
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .product-body {
+      padding: 18px 20px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .product-desc {
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.6;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+
+    .empty-state i { font-size: 3.5rem; opacity: .3; margin-bottom: 16px; }
+
+    /* ══════════════════════════════
+       CONTACTO
+    ══════════════════════════════ */
+    #contacto {
+      background: var(--warm);
+      padding: 100px 0;
+    }
+
+    .contact-card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      padding: 36px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      height: 100%;
+      transition: transform .3s;
+    }
+
+    .contact-card:hover { transform: translateY(-4px); }
+
+    .contact-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(232,97,44,.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .contact-card h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .contact-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-social-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.07);
+      border-radius: var(--card-radius);
+      padding: 20px 24px;
+      text-decoration: none;
+      color: var(--dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .contact-social-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.12);
+      color: var(--dark);
+    }
+
+    .social-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .social-icon-wrap.whatsapp { background: #e7f9ef; color: #25d366; }
+    .social-icon-wrap.instagram { background: #fde8f0; color: #e1306c; }
+    .social-icon-wrap.location  { background: rgba(232,97,44,.1); color: var(--accent); }
+
+    .social-btn-text strong {
+      display: block;
+      font-weight: 600;
+      font-size: .95rem;
+      margin-bottom: 2px;
+    }
+
+    .social-btn-text span {
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .map-wrap {
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.1);
+      height: 260px;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.45);
+      padding: 36px 0;
+      text-align: center;
+      font-size: .85rem;
+    }
+
+    footer .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ══════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up { animation: fadeUp .7s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .22s; }
+    .delay-3 { animation-delay: .36s; }
+    .delay-4 { animation-delay: .5s; }
+    .delay-5 { animation-delay: .65s; }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 768px) {
+      .contact-form-wrap { padding: 30px 22px; }
+      .hero-stat { padding: 14px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#inicio">Las <span>Negritas</span></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav gap-1">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#novedades">Novedades</a></li>
+        <li class="nav-item"><a class="nav-link" href="#catalogo">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════ HERO / INICIO ══════════ -->
+<section id="inicio">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+
+  <div class="container py-5">
+    <div class="row align-items-center gy-5">
+
+      <div class="col-lg-7">
+        <div class="hero-eyebrow fade-up">✦ Bienvenidos al catálogo</div>
+        <h1 class="hero-title fade-up delay-1">
+          Todo lo que<br>necesitás, <span>acá.</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          Explorá nuestra selección de productos pensados con cariño.
+          Calidad, variedad y las mejores novedades de temporada.
+        </p>
+        <div class="d-flex flex-wrap gap-3 fade-up delay-3">
+          <a href="#catalogo" class="btn-hero">
+            Ver catálogo <i class="bi bi-arrow-right"></i>
+          </a>
+          <a href="#novedades" class="btn-hero-outline">
+            <i class="bi bi-stars"></i> Novedades
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="row g-3 fade-up delay-4">
+          <div class="col-12">
+            <div class="hero-stat" style="text-align:center; padding: 28px 24px;">
+              <div style="color:rgba(255,255,255,.35);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;">Nuestra promesa</div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--cream);line-height:1.25;font-weight:700;">
+                Variedad de productos
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="hero-stat" style="text-align:center; padding: 28px 24px; border-color: rgba(232,97,44,.35); background: rgba(232,97,44,.07);">
+              <div style="color:rgba(232,97,44,.7);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;">Siempre</div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--accent);line-height:1.25;font-weight:700;">
+                Las mejores ofertas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ NOVEDADES CAROUSEL ══════════ -->
+<section id="novedades">
+  <div class="container">
+
+    <div class="d-flex justify-content-between align-items-end mb-5">
+      <div>
+        <span class="section-label">✦ Lo más nuevo</span>
+        <h2 class="section-title light">Novedades</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="carousel-ctrl" id="prevBtn"><i class="bi bi-chevron-left"></i></button>
+        <button class="carousel-ctrl" id="nextBtn"><i class="bi bi-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <div class="carousel-track-wrapper" style="overflow:hidden;">
+      <div class="carousel-track d-flex" id="carouselTrack" style="transition: transform .45s cubic-bezier(.4,0,.2,1);">
+
+        {% for producto in novedades %}
+        <div class="carousel-item-custom" style="min-width: calc(33.333% - 8px); flex-shrink:0;">
+          <div class="novelty-card">
+            <div class="novelty-img">
+              {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+              {% else %}
+                <i class="bi bi-image no-img-icon"></i>
+              {% endif %}
+            </div>
+            <div class="novelty-body">
+              <span class="novelty-badge">Novedad</span>
+              <div class="novelty-name">{{ producto.nombre }}</div>
+              <div class="novelty-desc">{{ producto.descripcion }}</div>
+              {% if producto.precio %}
+              <div class="novelty-price">${{ producto.precio }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5 w-100">
+          <i class="bi bi-stars" style="font-size:3rem;color:rgba(255,255,255,.2);"></i>
+          <p style="color:rgba(255,255,255,.35);margin-top:14px;">No hay novedades por ahora.</p>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════ CATÁLOGO ══════════ -->
+<section id="catalogo">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <span class="section-label">✦ Todos nuestros productos</span>
+      <h2 class="section-title">Catálogo</h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="text-center mb-5">
+      <div class="filter-bar">
+        <button
+          class="filter-btn active"
+          data-categoria="">
+          Todos
+        </button>
+        {% for categoria in categorias %}
+        <button
+          class="filter-btn"
+          data-categoria="{{ categoria.id }}">
+          {{ categoria.nombre }}
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Grilla de productos -->
+    <div class="row g-4" id="productos-grid">
+
+      {% for producto in productos %}
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-img">
+            {% if producto.imagen %}
+              <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            {% else %}
+              <i class="bi bi-image no-img"></i>
+            {% endif %}
+            {% if producto.categoria %}
+              <span class="product-cat-tag">{{ producto.categoria.nombre }}</span>
+            {% endif %}
+          </div>
+          <div class="product-body">
+            <div class="product-name">{{ producto.nombre }}</div>
+            <div class="product-desc">{{ producto.descripcion }}</div>
+            {% if producto.precio %}
+            <div class="product-price">${{ producto.precio }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="empty-state">
+          <i class="bi bi-box-seam d-block"></i>
+          <p>No hay productos en esta categoría.</p>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ CONTACTO ══════════ -->
+<section id="contacto">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <span class="section-label">✦ Hablemos</span>
+      <h2 class="section-title">Contacto</h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Botones de contacto -->
+      <div class="col-lg-5 d-flex flex-column gap-3">
+
+        <a href="https://wa.me/54000000000" target="_blank" class="contact-social-btn">
+          <div class="social-icon-wrap whatsapp">
+            <i class="bi bi-whatsapp"></i>
+          </div>
+          <div class="social-btn-text">
+            <strong>WhatsApp</strong>
+            <span>+54 000 000000 · Escribinos ahora</span>
+          </div>
+          <i class="bi bi-arrow-right ms-auto text-muted"></i>
+        </a>
+
+        <a href="https://instagram.com/lasnegritas" target="_blank" class="contact-social-btn">
+          <div class="social-icon-wrap instagram">
+            <i class="bi bi-instagram"></i>
+          </div>
+          <div class="social-btn-text">
+            <strong>Instagram</strong>
+            <span>@lasnegritas · Seguinos</span>
+          </div>
+          <i class="bi bi-arrow-right ms-auto text-muted"></i>
+        </a>
+
+        <div class="contact-social-btn" style="cursor:default;">
+          <div class="social-icon-wrap location">
+            <i class="bi bi-geo-alt-fill"></i>
+          </div>
+          <div class="social-btn-text">
+            <strong>Ubicación</strong>
+            <span>Tu dirección acá, Ciudad</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mapa -->
+      <div class="col-lg-7">
+        <div class="map-wrap">
+          <!-- Reemplazá el src con tu embed de Google Maps -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.016!2d-58.3815!3d-34.6037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDM2JzEzLjMiUyA1OMKwMjInNTMuNCJX!5e0!3m2!1ses!2sar!4v1234567890"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container">
+    <span class="brand">Las <span>Negritas</span></span>
+    <p>© 2026 · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  /* ── Carousel manual ── */
+  const track   = document.getElementById('carouselTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  if (track) {
+    const items     = track.children;
+    let   current   = 0;
+
+    function getVisible() {
+      return window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }
+
+    function maxIndex() {
+      return Math.max(0, items.length - getVisible());
+    }
+
+    function slide() {
+      const itemWidth = track.parentElement.offsetWidth / getVisible();
+      track.style.transform = `translateX(-${current * itemWidth}px)`;
+      prevBtn.style.opacity = current === 0 ? '.4' : '1';
+      nextBtn.style.opacity = current >= maxIndex() ? '.4' : '1';
+    }
+
+    prevBtn.addEventListener('click', () => { if (current > 0)           { current--; slide(); } });
+    nextBtn.addEventListener('click', () => { if (current < maxIndex())  { current++; slide(); } });
+    window.addEventListener('resize', () => { current = Math.min(current, maxIndex()); slide(); });
+
+    slide();
+  }
+
+  /* ── Filtro por categoría sin recarga ── */
+  const grid       = document.getElementById('productos-grid');
+  const filterBtns = document.querySelectorAll('.filter-btn[data-categoria]');
+
+  // Renderiza las cards en el grid
+  function renderCards(productos) {
+    if (!productos.length) {
+      grid.innerHTML = `
+        <div class="col-12">
+          <div class="empty-state">
+            <i class="bi bi-box-seam d-block"></i>
+            <p>No hay productos en esta categoría.</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = productos.map(p => `
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-img">
+            ${p.imagen
+              ? `<img src="${p.imagen}" alt="${p.nombre}">`
+              : `<i class="bi bi-image no-img"></i>`}
+            ${p.categoria ? `<span class="product-cat-tag">${p.categoria}</span>` : ''}
+          </div>
+          <div class="product-body">
+            <div class="product-name">${p.nombre}</div>
+            <div class="product-desc">${p.descripcion}</div>
+            ${p.precio ? `<div class="product-price">$${p.precio}</div>` : ''}
+          </div>
+        </div>
+      </div>`).join('');
+
+    // Animación de entrada
+    grid.querySelectorAll('.product-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity .3s ease, transform .3s ease';
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, i * 60);
+    });
+  }
+
+  // Carga inicial: renderiza los productos que Django ya pasó al template
+  const initialData = [
+    {% for producto in productos %}
+    {
+      nombre: "{{ producto.nombre|escapejs }}",
+      descripcion: "{{ producto.descripcion|escapejs }}",
+      precio: {% if producto.precio %}"{{ producto.precio }}"{% else %}null{% endif %},
+      imagen: {% if producto.imagen %}"{{ producto.imagen.url }}"{% else %}null{% endif %},
+      categoria: {% if producto.categoria %}"{{ producto.categoria.nombre|escapejs }}"{% else %}null{% endif %},
+      categoria_id: {% if producto.categoria %}{{ producto.categoria.id }}{% else %}null{% endif %}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
+
+  // Guarda todos los productos para filtrar en el cliente
+  const allProducts = initialData;
+
+  renderCards(allProducts);
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Actualizar botón activo
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const catId = btn.dataset.categoria;
+      const filtered = catId
+        ? allProducts.filter(p => String(p.categoria_id) === catId)
+        : allProducts;
+
+      renderCards(filtered);
+    });
+  });
+  const sections = document.querySelectorAll('section[id], #inicio');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  /* ── Smooth highlight active nav on click ── */
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
